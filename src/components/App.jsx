@@ -28,9 +28,9 @@ export default function App() {
       setStatus('pending');
       pixabayAPI.getPixabayData(searchQuery, page).then(data => {
         const { hits, totalHits } = data;
-        setImages([...hits]);
+        setImages(prevState => [...prevState, ...hits]);
         setStatus('resolved');
-        // setIsMoreImages(page < Math.ceil(totalHits / 12));
+        setIsMoreImages(page < Math.ceil(totalHits / 12));
       });
     } catch (error) {
       setStatus('rejected');
@@ -63,12 +63,13 @@ export default function App() {
     <div className={css.App}>
       {showModal && <Modal closeModal={closeModal} modalImage={modalImage} />}
       <Searchbar onSubmit={searchForm} />
+
+      {images.length > 0 && <ImageGallery getId={getImageId} images={images} />}
       {status === 'pending' && (
         <div className={css.Loader}>
           <Loader />
         </div>
       )}
-      {images.length > 0 && <ImageGallery getId={getImageId} images={images} />}
       {isMoreImages && <Button onLoad={handleLoadMore} />}
       {status === 'rejected' && <p>Sorry. Something went wrong! 😥</p>}
       {status === 'resolved' && images.length === 0 && (
