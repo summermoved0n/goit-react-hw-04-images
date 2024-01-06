@@ -5,26 +5,16 @@ import { createPortal } from 'react-dom';
 const modalRoot = document.querySelector('#modal-root');
 
 export default function Modal({ closeModal, modalImage }) {
-  // componentDidMount() {
-  //   window.addEventListener('keydown', this.handleKeyDown);
-  // }
-
-  // componentWillUnmount() {
-  //   window.removeEventListener('keydown', this.handleKeyDown);
-  // }
-
   useEffect(() => {
-    window.addEventListener('keydown', e => {
+    const handleKeydown = e => {
       if (e.code === 'Escape') {
         closeModal();
       }
-    });
+    };
+
+    window.addEventListener('keydown', handleKeydown);
     return () => {
-      window.removeEventListener('keydown', e => {
-        if (e.code === 'Escape') {
-          closeModal();
-        }
-      });
+      window.removeEventListener('keydown', handleKeydown);
     };
   }, [closeModal]);
 
