@@ -1,4 +1,4 @@
-import { Component, useState } from 'react';
+import { useState } from 'react';
 import { FaSearch } from 'react-icons/fa';
 import css from './Searchbar.module.css';
 
