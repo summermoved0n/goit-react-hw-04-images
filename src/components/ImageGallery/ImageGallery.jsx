@@ -1,7 +1,7 @@
 import css from './ImageGallery.module.css';
-import { ImageGalleryItem } from '../ImageGalleryItem/ImageGalleryItem';
+import ImageGalleryItem from '../ImageGalleryItem/ImageGalleryItem';
 
-export const ImageGallery = ({ images, getId }) => {
+export default function ImageGallery({ images, getId }) {
   return (
     <ul className={css.ImageGallery}>
       {images.map(({ id, webformatURL, tags }) => (
@@ -15,4 +15,4 @@ export const ImageGallery = ({ images, getId }) => {
       ))}
     </ul>
   );
-};
+}

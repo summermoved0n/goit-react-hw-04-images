@@ -1,6 +1,6 @@
 import css from './ImageGalleryItem.module.css';
 
-export const ImageGalleryItem = ({ webformatURL, tags, getId, id }) => {
+export default function ImageGalleryItem({ webformatURL, tags, getId, id }) {
   return (
     <li className={css.ImageGalleryItem} onClick={() => getId(id)} id={id}>
       <img
@@ -10,4 +10,4 @@ export const ImageGalleryItem = ({ webformatURL, tags, getId, id }) => {
       />
     </li>
   );
-};
+}

@@ -1,60 +1,47 @@
-import { Component } from 'react';
+import { Component, useState } from 'react';
 import { FaSearch } from 'react-icons/fa';
 import css from './Searchbar.module.css';
 
-export class Searchbar extends Component {
-  state = {
-    input: '',
-  };
+export default function Searchbar({ onSubmit }) {
+  const [input, setInput] = useState('');
 
-  handleChange = e => {
+  const handleChange = e => {
     const { value } = e.target;
-    this.setState({
-      input: value,
-    });
+    setInput(value);
   };
 
-  handleSubmit = e => {
+  const handleSubmit = e => {
     e.preventDefault();
-    this.props.onSubmit(this.state.input);
-    this.resetSubmit();
+    onSubmit(input);
+    setInput('');
   };
 
-  resetSubmit = () => {
-    this.setState({
-      input: '',
-    });
-  };
-
-  render() {
-    const { input } = this.state;
-    return (
-      <header className={css.Searchbar}>
-        <form onSubmit={this.handleSubmit} className={css.SearchForm}>
-          {input === '' ? (
-            <button type="submit" className={css.SearchForm_button} disabled>
-              <span>
-                <FaSearch />
-              </span>
-            </button>
-          ) : (
-            <button type="submit" className={css.SearchForm_button}>
-              <span>
-                <FaSearch />
-              </span>
-            </button>
-          )}
-          <input
-            onChange={this.handleChange}
-            className={css.SearchForm_input}
-            type="text"
-            value={input}
-            autoComplete="off"
-            autoFocus
-            placeholder="Search images and photos"
-          />
-        </form>
-      </header>
-    );
-  }
+  return (
+    <header className={css.Searchbar}>
+      <form onSubmit={handleSubmit} className={css.SearchForm}>
+        {input === '' ? (
+          <button type="submit" className={css.SearchForm_button} disabled>
+            <span>
+              <FaSearch />
+            </span>
+          </button>
+        ) : (
+          <button type="submit" className={css.SearchForm_button}>
+            <span>
+              <FaSearch />
+            </span>
+          </button>
+        )}
+        <input
+          onChange={handleChange}
+          className={css.SearchForm_input}
+          type="text"
+          value={input}
+          autoComplete="off"
+          autoFocus
+          placeholder="Search images and photos"
+        />
+      </form>
+    </header>
+  );
 }
